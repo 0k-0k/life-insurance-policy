@@ -1,0 +1,30 @@
+type LifeInsurancePolicy = record {
+  id : text;
+  policyHolder : principal;
+  createdAt : nat64;
+  policyStartDate : nat64;
+  isClaimed : bool;
+  updatedAt : opt nat64;
+  coverageAmount : float64;
+  policyEndDate : nat64;
+  premiumAmount : float64;
+  policyHolderName : text;
+};
+type LifeInsurancePolicyPayload = record {
+  policyStartDate : nat64;
+  isClaimed : bool;
+  coverageAmount : float64;
+  policyEndDate : nat64;
+  premiumAmount : float64;
+  policyHolderName : text;
+};
+type _AzleResult = variant { Ok : LifeInsurancePolicy; Err : text };
+type _AzleResult_1 = variant { Ok : vec LifeInsurancePolicy; Err : text };
+service : () -> {
+  createInsurancePolicy : (LifeInsurancePolicyPayload) -> (_AzleResult);
+  deleteInsurancePolicy : (text) -> (_AzleResult);
+  fileClaim : (text) -> (_AzleResult);
+  getAllInsurancePolicies : () -> (_AzleResult_1) query;
+  getInsurancePolicy : (text) -> (_AzleResult) query;
+  updateInsurancePolicy : (text, LifeInsurancePolicyPayload) -> (_AzleResult);
+}
